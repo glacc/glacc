@@ -1,3 +1,3 @@
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=glacc&layout=compact&hide=assembly)](https://github.com/anuraghazra/github-readme-stats)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=glacc&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
 
 qwq
