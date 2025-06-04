@@ -1,0 +1,81 @@
+// (C / C++) 变量采用蛇形命名，函数和类型／结构体采用大驼峰命名 //
+
+int snake_named_variable;
+
+void MyFunction(void);
+
+class MyClass
+{
+	// ... //
+};
+
+typedef struct
+{
+	// ... //
+}
+MyStructTypedef;
+
+// C# 遵循 C# 代码的标准命名方式 //
+
+// 用于区分不同模块时，模块名与模块名、模块名与变量名、模块名与函数名等之间使用下划线分隔 //
+
+void MyModule_Function(void);
+
+int MyModule_module_variable;
+
+void MyModule_MySubmodule_Function(void);
+
+int MyModule_MySubmodule_module_variable;
+
+// 大括号采用 Allman 风格 //
+
+if (a == 1)
+{
+}
+else
+{
+}
+
+// 若 if、while、for 后面的代码只有一行时，可省略大括号 //
+
+if (b == 1)
+	DoSomething();
+
+// 若 if、while、for 后面的代码有多行时（包括只有一个分号时）//
+
+if (c == 1)
+{
+	Func
+	(
+		parameter_a,
+		parameter_b
+	);
+}
+
+// 对于 while(true) 循环 //
+
+while (true);
+
+// 对于 for 循环，任意一个部分为空时，请使用 while 循环 //
+
+for (int i = 0; i < 100; i++)
+{
+	// ... //
+}
+
+// 可使用空行将不同功能的代码块分隔，包括单行代码，以提高可读性 //
+
+// 注释上的一些个人偏好：//
+
+// 单行注释习惯在末尾也加上“//”以保持视觉对称 //
+/* 单行 /**/ 也可以，但个人在习惯上会有区分，类似于多级标题 */
+// 尾部不加“//”的注释也可以，习惯同上（分级）
+
+int some_variable;	// 变量说明
+
+/*
+习惯使用 /**/ 注释掉不使用的代码
+*/
+
+// 也习惯
+// 这样注释掉不使用的代码（“//”和代码之间使用一个空格分隔）
