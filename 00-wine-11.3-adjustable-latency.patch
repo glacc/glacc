@@ -1,0 +1,60 @@
+diff --git a/dlls/mmdevapi/client.c b/dlls/mmdevapi/client.c
+index deab9cb..b000046 100644
+--- a/dlls/mmdevapi/client.c
++++ b/dlls/mmdevapi/client.c
+@@ -103,7 +103,6 @@ static inline struct audio_client *impl_from_IAudioStreamVolume(IAudioStreamVolu
+ static HRESULT get_periods(struct audio_client *client,
+                            REFERENCE_TIME *def_period, REFERENCE_TIME *min_period)
+ {
+-    static const REFERENCE_TIME min_def_period = 100000; /* 10 ms */
+     struct get_device_period_params params;
+ 
+     params.device     = client->device_name;
+@@ -113,8 +112,6 @@ static HRESULT get_periods(struct audio_client *client,
+ 
+     wine_unix_call(get_device_period, &params);
+ 
+-    if (def_period) *def_period = max(*def_period, min_def_period);
+-
+     return params.result;
+ }
+ 
+diff --git a/dlls/winepulse.drv/pulse.c b/dlls/winepulse.drv/pulse.c
+index 8033f0f..58f466f 100644
+--- a/dlls/winepulse.drv/pulse.c
++++ b/dlls/winepulse.drv/pulse.c
+@@ -1136,6 +1136,7 @@ static NTSTATUS pulse_create_stream(void *args)
+     unsigned int i, bufsize_bytes;
+     HRESULT hr;
+     char *name;
++    const char* penv, *denv;
+ 
+     if (params->share == AUDCLNT_SHAREMODE_EXCLUSIVE) {
+         params->result = AUDCLNT_E_EXCLUSIVE_MODE_NOT_ALLOWED;
+@@ -1174,10 +1175,26 @@ static NTSTATUS pulse_create_stream(void *args)
+     stream->def_period = params->period;
+     stream->duration = params->duration;
+ 
++    penv = getenv("STAGING_AUDIO_PERIOD");
++    if (penv) {
++        int val = atoi(penv);
++        stream->def_period = params->period = val;
++        TRACE("Staging audio period set to %d.\n", val);
++    }
++
++    denv = getenv("STAGING_AUDIO_DURATION");
++    if (denv) {
++        int val = atoi(denv);
++        stream->duration = params->duration = val;
++        TRACE("Staging audio duration set to %d.\n", val);
++    }
++
+     stream->period_bytes = pa_frame_size(&stream->ss) * muldiv(params->period,
+                                                                stream->ss.rate,
+                                                                10000000);
+ 
++    TRACE("period_bytes: %d\n", (int)stream->period_bytes);
++
+     if (stream->period_bytes == 0)
+     {
+         hr = E_INVALIDARG;
