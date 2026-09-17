@@ -11,6 +11,6 @@ not actually good at them but these are my comfort zones: Verilog, M68K, C/C++, 
 
 ---
 
-almost all of my repos
+almost all of my repositories are...
 
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
